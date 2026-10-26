@@ -14,5 +14,6 @@ builder.Services.AddHttpClient("TalkApi", options =>
 
 //Register Sdk Services
 builder.Services.AddScoped<ChatChannelService>();
+builder.Services.AddScoped<ChatMessageService>();
 
 await builder.Build().RunAsync();

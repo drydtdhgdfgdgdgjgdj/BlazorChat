@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using BlazorChat.Dto.Requests
 @using BlazorChat.Dto.Results
 @using BlazorChat.Sdk
 @inject ChatChannelService ChatChannelService
@@ -6,6 +7,9 @@
 <PageTitle>Chat Client</PageTitle>
 
 <h1>Hello, chatter!</h1>
+
+<input @bind="ChannelName" placeholder="Channel name" />
+<button @onclick="Post">Create</button>
 
 @if (Channels != null)
 {
@@ -26,10 +30,28 @@ else
 {
     private IList<ChatChannelResult>? Channels { get; set; }
 
+    private string ChannelName { get; set; } = "";
+
     protected override async Task OnInitializedAsync()
     {
-        Channels = await ChatChannelService.Find();
+        await Refresh();
 
         await base.OnInitializedAsync();
+    }
+
+    private async Task Refresh()
+    {
+        Channels = await ChatChannelService.Find();
+    }
+
+    private async Task Post()
+    {
+        var request = new ChatChannelRequest { Name = ChannelName };
+
+        await ChatChannelService.Create(request);
+
+        ChannelName = "";
+
+        await Refresh();
     }
 }
