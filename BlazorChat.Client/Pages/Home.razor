@@ -1,0 +1,35 @@
+﻿@page "/"
+@using BlazorChat.Dto.Results
+@using BlazorChat.Sdk
+@inject ChatChannelService ChatChannelService
+
+<PageTitle>Chat Client</PageTitle>
+
+<h1>Hello, chatter!</h1>
+
+@if (Channels != null)
+{
+    <ul>
+        @foreach (var channel in Channels)
+        {
+            <li>@channel.Name</li>
+        }
+    </ul>
+}
+else
+{
+    <p>There are no channels yet. Come back later...</p>
+}
+
+
+@code
+{
+    private IList<ChatChannelResult>? Channels { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Channels = await ChatChannelService.Find();
+
+        await base.OnInitializedAsync();
+    }
+}

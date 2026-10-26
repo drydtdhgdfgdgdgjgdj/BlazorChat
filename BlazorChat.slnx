@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BlazorChat.Client/BlazorChat.Client.csproj" />
+  <Project Path="BlazorChat.Dto/BlazorChat.Dto.csproj" />
+  <Project Path="BlazorChat.Sdk/BlazorChat.Sdk.csproj" />
+</Solution>
